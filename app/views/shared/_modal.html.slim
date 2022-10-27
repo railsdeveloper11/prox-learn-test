@@ -1,0 +1,18 @@
+= turbo_frame_tag "modal" do
+  = content_tag('div', :class=>"fixed z-10 inset-0 overflow-y-auto animated fadeIn flex items-center justify-center", :style=>"z-index:9999", id: "turbo-modal")
+    = tag.div data: { controller: "turbo-modal", action: "turbo:submit-end->turbo-modal#handleSuccess"}, style: "padding: 30px;" do
+      .flex.items-end.justify-center.min-h-screen.pt-4.px-4.pb-20.text-center.lg:block.lg:p-0
+          .fixed.inset-0.bg-gray-500.bg-opacity-75.transition-opacity
+            .h-screen.px-4.flex.items-center.justify-center
+              .bg-white class="md:max-w-[130%]"
+                .flex.justify-between
+                  h1.text-gray-800.font-semibold.text-xl.text-left.px-6.pt-6.pb-6#modal_title
+                  = button_tag "Close", data: { action: "turbo-modal#hideModal" }, type: "button", class: "bg-white rounded-md p-2 inline-flex tems-center justify-center.text-gray-400 hover:text-gray-500 hover:bg-gray-100.focus:outline-none focus:ring-2.focus:ring-inset focus:ring-indigo-500"
+                    span.sr-only
+                      Close menu
+                    svg.h-6.w-6[xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor" aria-hidden="true"]
+                      path[stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"]      
+                .px-6.pb-6.text-left.w-full.overflow-y-auto style="max-height: calc(100vh - 120px)"
+                  = yield
+                  = button_tag "Cancel", data: { action: "turbo-modal#hideModal"  }, type: "button", class: "w-40 rounded-lg py-3 px-3  ml-5 w-full bg-blue-600 text-white text-center font-medium cursor-pointer"
+

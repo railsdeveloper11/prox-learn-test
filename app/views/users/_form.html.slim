@@ -1,0 +1,25 @@
+= render "shared/modal" do
+  = form_with(model: user, class: "contents", data: { controller: "users", target: 'users.form' }) do |form|
+    - if user.errors.any?
+      .bg-red-50.text-red-500.px-3.py-2.font-medium.rounded-lg.mt-3
+        ul
+          - user.errors.each do |error|
+            li
+              = error.full_message
+    .my-5
+      = form.label :first_name
+      = form.text_field :first_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full required", data: { action: 'focusout->users#validateRequiredField', target: 'users.firstName'}
+    .my-5
+      = form.label :last_name
+      = form.text_field :last_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->users#validateRequiredField', target: 'users.lastName'}
+    .my-5
+      = form.label :nick_name
+      = form.text_field :nick_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"
+    .my-5
+      = form.label :email
+      = form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->users#validateEmail', target: 'users.email'}
+    .my-5
+      = form.label :phone
+      = form.text_field :phone, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->users#validatePhone', target: 'users.phone', mask: '(999) 999-9999' }
+    .inline
+      = form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer", data: { target: 'users.submitBtn'}

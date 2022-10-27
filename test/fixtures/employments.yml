@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employer: MyString
+  start_date: 2022-10-25
+  end_date: 2022-10-25
+
+two:
+  employer: MyString
+  start_date: 2022-10-25
+  end_date: 2022-10-25

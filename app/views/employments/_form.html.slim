@@ -1,0 +1,22 @@
+ = render "shared/modal" do 
+  = form_with(model: employment, url: employments_path, class: "contents", data: { controller: "employment" }) do |form|
+    - if employment.errors.any?
+      .bg-red-50.text-red-500.px-3.py-2.font-medium.rounded-lg.mt-3
+        ul
+          - employment.errors.each do |error|
+            li
+              = error.full_message
+    .my-5
+      = form.label :employer
+      = form.text_field :employer, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->employment#validateRequiredField', target: 'employment.employer'}
+    .my-5
+      = form.label :start_date
+      = form.date_field :start_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->employment#validateStartDateField', target: 'employment.startDate'}
+    .my-5
+      = form.label :end_date
+      = form.date_field :end_date, "datepicker-format": "mm/dd/yyyy", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->employment#validateEndDateField', target: 'employment.endDate'}
+    .my-5
+      = form.hidden_field :user_id, value: user.id, data: { target: 'employment.startDate'}
+    .inline
+      = form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer", data: { target: 'employment.submitBtn'}
+
