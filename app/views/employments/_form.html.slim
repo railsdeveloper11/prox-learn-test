@@ -1,11 +1,7 @@
  = render "shared/modal" do 
   = form_with(model: employment, url: employments_path, class: "contents", data: { controller: "employment" }) do |form|
-    - if employment.errors.any?
-      .bg-red-50.text-red-500.px-3.py-2.font-medium.rounded-lg.mt-3
-        ul
-          - employment.errors.each do |error|
-            li
-              = error.full_message
+    = turbo_frame_tag "errors" do
+      = render "errors", employment: employment
     .my-5
       = form.label :employer
       = form.text_field :employer, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { action: 'focusout->employment#validateRequiredField', target: 'employment.employer'}

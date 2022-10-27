@@ -1,14 +1,18 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: :employer_details
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.includes(:employment)
   end
 
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def employer_details
+    @employment = @user.employment
   end
 
   # POST /users or /users.json
@@ -30,12 +34,13 @@ class UsersController < ApplicationController
             user: @user,
             employment: Employment.new
           }
-        )
+        ),
+        turbo_stream.remove("no_records_found")
       ]
     else
       render turbo_stream: turbo_stream.replace(
-        'modal',
-        partial: 'users/form',
+        'errors',
+        partial: 'users/errors',
         locals: {
           user: @user
         }

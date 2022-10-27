@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "users#index"
 
-  resources :users
+  resources :users do
+    get :employer_details, on: :member
+  end
 
   resources :employments, only: [:new, :create]
 

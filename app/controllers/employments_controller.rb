@@ -10,7 +10,7 @@ class EmploymentsController < ApplicationController
   def create
     @employment = Employment.new(employment_params)
     if @employment.save
-      @user.update(employment_id: @employment)
+      @user.update(employment_id: @employment.id)
       flash.now[:notice] = "Employment was successfully created." 
       render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash")
     else

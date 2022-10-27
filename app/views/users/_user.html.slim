@@ -7,3 +7,6 @@ tr.bg-white.border-b.dark:bg-gray-800.dark:border-gray-700.hover:bg-gray-50.dark
     =user.email
   td.py-4.px-6
     =user.phone
+  td.py-4.px-6
+    - if user.employment.present?
+      =link_to "View Employer", employer_details_user_path(user.id), data: { turbo_frame: 'modal' }

@@ -1,11 +1,7 @@
 = render "shared/modal" do
   = form_with(model: user, class: "contents", data: { controller: "users", target: 'users.form' }) do |form|
-    - if user.errors.any?
-      .bg-red-50.text-red-500.px-3.py-2.font-medium.rounded-lg.mt-3
-        ul
-          - user.errors.each do |error|
-            li
-              = error.full_message
+    = turbo_frame_tag "errors" do
+      = render "errors", user: user
     .my-5
       = form.label :first_name
       = form.text_field :first_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full required", data: { action: 'focusout->users#validateRequiredField', target: 'users.firstName'}
